@@ -15,4 +15,4 @@ RUN npm run build
 
 ENV PORT=3000
 EXPOSE 3000
-CMD ["node", "dist/main"]
+CMD ["sh", "-c", "if [ \"$SEED_ON_START\" = \"true\" ]; then npx prisma db seed; fi; exec node dist/main"]

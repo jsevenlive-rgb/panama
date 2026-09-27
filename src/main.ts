@@ -62,9 +62,9 @@ async function bootstrap() {
     );
   }
 
-  await app.init();
-  const { schema } = app.get(GraphQLSchemaHost);
-  SwaggerModule.setup('apidoc', app, graphqlSchemaToOpenApi(schema));
+  SwaggerModule.setup('apidoc', app, () =>
+    graphqlSchemaToOpenApi(app.get(GraphQLSchemaHost).schema)
+  );
 
   app.enableShutdownHooks();
   const port = process.env.PORT || process.env.HTTP_PORT || 3000;
