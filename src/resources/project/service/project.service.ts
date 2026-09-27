@@ -6,11 +6,12 @@ import { ProjectsRepository } from '../../../repository/prisma/projects/projects
 export class ProjectService {
   constructor(readonly projectsRepository: ProjectsRepository) {}
 
-  async add(data: { profile_id: string; name: string }): Promise<string> {
+  async add(data: { profile_id: string; name: string; git?: string }): Promise<string> {
     const now = new Date();
     const result = await this.projectsRepository.create({
       profileId: data.profile_id,
       name: data.name,
+      git: data.git ?? '',
       dateCreate: now,
       dateUpdate: now,
     });
@@ -33,9 +34,12 @@ export class ProjectService {
     return { items, total };
   }
 
-  async update(id: string, data: Partial<{ name: string; profile_id: string }>): Promise<void> {
-    const updateDoc: { name?: string; profileId?: string; dateUpdate: Date } = { dateUpdate: new Date() };
+  async update(id: string, data: Partial<{ name: string; git: string; profile_id: string }>): Promise<void> {
+    const updateDoc: { name?: string; git?: string; profileId?: string; dateUpdate: Date } = {
+      dateUpdate: new Date(),
+    };
     if (data.name !== undefined) updateDoc.name = data.name;
+    if (data.git !== undefined) updateDoc.git = data.git;
     if (data.profile_id !== undefined) updateDoc.profileId = data.profile_id;
     await this.projectsRepository.update(id, updateDoc);
   }

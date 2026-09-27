@@ -12,6 +12,7 @@ import { ProjectModule } from './resources/project/project.module';
 import { PrismaModule } from './repository/prisma/prisma.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 @Module({
   imports: [
@@ -26,6 +27,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       autoSchemaFile: true,
       sortSchema: true,
       path: '/graphql',
+      introspection: true,
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
     }),
     ProfileModule,
     SkillModule,

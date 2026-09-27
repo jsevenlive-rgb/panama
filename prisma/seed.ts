@@ -104,8 +104,15 @@ async function main() {
         })),
       },
       projects: {
-        create: ['Сенлер', 'StreamVi', 'Геликон CMS', 'trendradar', 'iibaza'].map((name) => ({
-          name,
+        create: [
+          { name: 'Сенлер', git: '' },
+          { name: 'StreamVi', git: '' },
+          { name: 'Геликон CMS', git: '' },
+          { name: 'trendradar', git: 'https://github.com/jsevenlive-rgb/trendradar' },
+          { name: 'iibaza', git: '' },
+        ].map((project) => ({
+          name: project.name,
+          git: project.git,
           dateCreate: now,
           dateUpdate: now,
         })),

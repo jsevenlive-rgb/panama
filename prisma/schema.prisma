@@ -50,6 +50,7 @@ model Project {
   profileId  String    @map("profile_id") @db.ObjectId
   profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
   name       String    @default("")
+  git        String    @default("")
   dateCreate DateTime? @map("date_create")
   dateUpdate DateTime? @map("date_update")
 
