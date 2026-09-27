@@ -1,9 +1,18 @@
 FROM node:22.14.0-alpine3.21
-ARG APP_DIR=app
-WORKDIR ${APP_DIR}
+WORKDIR /app
+
+RUN apk add --no-cache openssl
 
 COPY package*.json ./
-RUN npm install
+COPY prisma ./prisma
+
+ENV HUSKY=0
+RUN npm ci
+RUN npx prisma generate
 
 COPY . .
-CMD ["node", "main.js"]
+RUN npm run build
+
+ENV PORT=3000
+EXPOSE 3000
+CMD ["node", "dist/main"]

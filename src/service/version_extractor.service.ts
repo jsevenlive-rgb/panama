@@ -1,7 +1,8 @@
 import { ErrorResponseLang } from '../response/error.dto';
 
 export const extractor = (request: any): string | string[] => {
-  if (request.url?.startsWith('/graphql')) {
+  const url = request.url?.split('?')[0] ?? '';
+  if (url.startsWith('/graphql') || url.startsWith('/apidoc')) {
     return '1';
   }
 
