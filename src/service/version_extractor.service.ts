@@ -1,4 +1,4 @@
-import { ErrorResponseLang } from '../response/error.dto';
+import { BadRequestException } from '@nestjs/common';
 
 export const extractor = (request: any): string | string[] => {
   const url = request.url?.split('?')[0] ?? '';
@@ -19,7 +19,7 @@ export const extractor = (request: any): string | string[] => {
   if (!requestedVersion && request.body)
     requestedVersion = request.body && typeof request.body === 'object' && request.body['v'] ? request.body['v'] : null;
 
-  if (!requestedVersion) throw new ErrorResponseLang('version.not_provided');
+  if (!requestedVersion) throw new BadRequestException('Version not provided');
 
   // If requested version is N, then this generates an array like: ['N', 'N-1', 'N-2', ... , '1']
 

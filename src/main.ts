@@ -4,9 +4,8 @@ import { GraphQLSchemaHost } from '@nestjs/graphql';
 import { AppModule } from './app.module';
 import { graphqlSchemaToOpenApi } from './service/graphql_openapi';
 import * as process from 'process';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { extractor } from './service/version_extractor.service';
-import { I18nValidationPipe } from 'nestjs-i18n';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import * as requestIp from 'request-ip';
 import * as basicAuth from 'express-basic-auth';
@@ -40,7 +39,7 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(
-    new I18nValidationPipe({
+    new ValidationPipe({
       transform: true,
       forbidUnknownValues: true,
       transformOptions: {

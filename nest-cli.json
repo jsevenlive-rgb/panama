@@ -4,7 +4,7 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": false,
-    "assets": ["**/*.proto", { "include": "i18n/**/*", "watchAssets": true }],
+    "assets": ["**/*.proto"],
     "watchAssets": true,
     "plugins": [
       {
