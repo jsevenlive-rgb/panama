@@ -32,7 +32,11 @@ export class ProfileService {
       name: profile.name,
       description: profile.description,
       skills: profile.skills.map(({ name }) => ({ name })),
-      experience: profile.experiences.map(({ company, position }) => ({ company, position })),
+      experience: profile.experiences.map(({ company, position, period }) => ({
+        company,
+        position,
+        period: period ?? '',
+      })),
       projects: profile.projects.map(({ name, git }) => ({ name, git: git ?? '' })),
     };
   }

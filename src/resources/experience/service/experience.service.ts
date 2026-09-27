@@ -6,12 +6,13 @@ import { ExperiencesRepository } from '../../../repository/prisma/experiences/ex
 export class ExperienceService {
   constructor(readonly experiencesRepository: ExperiencesRepository) {}
 
-  async add(data: { profile_id: string; company: string; position: string }): Promise<string> {
+  async add(data: { profile_id: string; company: string; position: string; period?: string }): Promise<string> {
     const now = new Date();
     const result = await this.experiencesRepository.create({
       profileId: data.profile_id,
       company: data.company,
       position: data.position,
+      period: data.period ?? '',
       dateCreate: now,
       dateUpdate: now,
     });
@@ -36,13 +37,15 @@ export class ExperienceService {
 
   async update(
     id: string,
-    data: Partial<{ company: string; position: string; profile_id: string }>,
+    data: Partial<{ company: string; position: string; period: string; profile_id: string }>,
   ): Promise<void> {
-    const updateDoc: { company?: string; position?: string; profileId?: string; dateUpdate: Date } = {
-      dateUpdate: new Date(),
-    };
+    const updateDoc: { company?: string; position?: string; period?: string; profileId?: string; dateUpdate: Date } =
+      {
+        dateUpdate: new Date(),
+      };
     if (data.company !== undefined) updateDoc.company = data.company;
     if (data.position !== undefined) updateDoc.position = data.position;
+    if (data.period !== undefined) updateDoc.period = data.period;
     if (data.profile_id !== undefined) updateDoc.profileId = data.profile_id;
     await this.experiencesRepository.update(id, updateDoc);
   }

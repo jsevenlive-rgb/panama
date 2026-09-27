@@ -7,4 +7,7 @@ export class GraphqlExperienceResponse {
 
   @Field()
   position: string;
+
+  @Field()
+  period: string;
 }

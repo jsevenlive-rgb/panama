@@ -38,6 +38,7 @@ model Experience {
   profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
   company    String    @default("")
   position   String    @default("")
+  period     String    @default("")
   dateCreate DateTime? @map("date_create")
   dateUpdate DateTime? @map("date_update")
 
